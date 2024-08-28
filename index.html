@@ -18,14 +18,14 @@
         }
 
         .titulo {
-            color: #007bff; /* Cor de destaque */
-            font-size: 18px; /* Tamanho maior para destacar o título */
-            font-weight: 700; /* Negrito para dar mais ênfase */
+            color: #007bff;
+            font-size: 18px;
+            font-weight: 700;
             text-align: center;
             margin-bottom: 20px;
-            text-transform: uppercase; /* Coloca o texto em maiúsculas */
-            letter-spacing: 2px; /* Aumenta o espaçamento entre as letras para um efeito moderno */
-            position: relative; /* Para usar com a linha decorativa */
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            position: relative;
         }
 
         .titulo::after {
@@ -93,7 +93,7 @@
             transform: scale(1.1);
         }
 
-        button {
+        select, button {
             width: 100%;
             padding: 0;
             background-color: #28a745;
@@ -108,9 +108,15 @@
             justify-content: center;
             height: 40px;
             line-height: 40px;
+            margin-bottom: 20px;
         }
 
-        button:hover {
+        select {
+            background-color: #007bff;
+            margin-bottom: 20px;
+        }
+
+        button:hover, select:hover {
             background-color: #218838;
         }
 
@@ -155,6 +161,11 @@
 
     <div class="container">
         <h1 class="titulo">Notificações de Encomendas</h1>
+    
+        <select id="tipoEncomenda">
+            <option value="SEDEX">SEDEX (Correios)</option>
+            <option value="ENCOMENDAS">ENCOMENDAS (Transportadora)</option>
+        </select>
     
         <div class="checkbox-grid">
             <!-- Generate the grid dynamically -->
@@ -201,6 +212,7 @@
     
     <script>
         function gerarMensagem() {
+            const tipoEncomenda = document.getElementById('tipoEncomenda').value;
             const checkboxes = document.querySelectorAll('.checkbox-grid input[type="checkbox"]:checked');
             const apartamentos = [];
             checkboxes.forEach(checkbox => {
@@ -209,14 +221,32 @@
             });
             const resultDiv = document.getElementById('result');
             const whatsappButton = document.getElementById('whatsappButton');
+            
             if (apartamentos.length > 0) {
-                const mensagem = `Encomendas para os seguintes apartamentos: ${apartamentos.join(', ')}`;
+                const saudacao = getSaudacao();
+                const iconeEncomenda = tipoEncomenda === "SEDEX" ? "📦" : "🚚";
+                const mensagem = `${saudacao} *Gostaríamos de informar* que recebemos ${iconeEncomenda} *${tipoEncomenda}* na portaria para os apartamentos: *${apartamentos.join(', ')}*. *Por favor, passe na portaria* para retirar suas entregas *assim que possível*. 😊`;
+
+                // Concatena a URL do WhatsApp sem codificar os emojis
+                const encodedMessage = `https://api.whatsapp.com/send?text=${encodeURIComponent(mensagem)}`;
+                
                 resultDiv.textContent = mensagem;
                 whatsappButton.style.display = 'block';
-                whatsappButton.href = `https://wa.me/?text=${encodeURIComponent(mensagem)}`;
+                whatsappButton.href = encodedMessage;
             } else {
                 resultDiv.textContent = 'Nenhum apartamento selecionado.';
                 whatsappButton.style.display = 'none';
+            }
+        }
+
+        function getSaudacao() {
+            const hora = new Date().getHours();
+            if (hora >= 5 && hora < 12) {
+                return "☀️ Bom dia!";
+            } else if (hora >= 12 && hora < 18) {
+                return "☀️ Boa tarde!";
+            } else {
+                return "🌙 Boa noite!";
             }
         }
     </script>
