@@ -20,19 +20,20 @@
             color: #333;
             margin-bottom: 20px;
             font-size: 24px;
+            text-align: center;
         }
         .container {
             background-color: #fff;
             border-radius: 10px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
             padding: 20px;
-            max-width: 400px;
-            width: 100%;
+            max-width: 100%;
+            width: 380px;
         }
         .checkbox-grid {
             display: grid;
             grid-template-columns: repeat(10, 1fr);
-            gap: 10px;
+            gap: 8px;
             margin-bottom: 20px;
         }
         .checkbox-grid .andar {
@@ -43,7 +44,10 @@
             background-color: #007bff;
             color: white;
             border-radius: 5px;
-            padding: 5px 0;
+            width: 30px;
+            height: 30px;
+            font-size: 14px;
+            text-align: center;
         }
         .checkbox-grid label {
             display: flex;
@@ -51,12 +55,13 @@
             justify-content: center;
             background-color: #f0f0f0;
             border-radius: 50%;
-            width: 35px;
-            height: 35px;
+            width: 30px;
+            height: 30px;
             transition: background-color 0.3s ease, transform 0.2s ease;
             cursor: pointer;
             font-weight: bold;
             color: #333;
+            font-size: 14px;
         }
         .checkbox-grid input[type="checkbox"] {
             display: none;
