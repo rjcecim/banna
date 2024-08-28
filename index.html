@@ -8,41 +8,26 @@
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            background-color: #e9ecef;
-        }
-
-        .container {
-            width: 100%;
-            max-width: 500px;
-            background-color: #fff;
             padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            margin: 20px;
+            background-color: #f7f7f7;
+            color: #333;
         }
 
         h1 {
             font-size: 28px;
-            color: #007bff;
+            color: #444;
             text-align: center;
             margin-bottom: 20px;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
         }
 
         .checkbox-grid {
             display: grid;
             grid-template-columns: 1fr repeat(9, 1fr);
-            gap: 10px;
-            margin-bottom: 20px;
-            padding: 15px;
-            background-color: #f8f9fa;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            gap: 15px;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
 
         .checkbox-grid label {
@@ -50,10 +35,16 @@
             align-items: center;
             justify-content: center;
             padding: 10px;
-            background-color: #007bff;
-            color: #fff;
+            background-color: #e0e0e0;
+            color: #333;
             border-radius: 4px;
             cursor: pointer;
+            transition: background-color 0.3s;
+            font-size: 14px;
+        }
+
+        .checkbox-grid label:hover {
+            background-color: #d0d0d0;
         }
 
         .checkbox-grid input[type="checkbox"] {
@@ -66,15 +57,19 @@
             align-items: center;
             justify-content: center;
             font-weight: bold;
-            background-color: #6c757d;
-            color: #fff;
+            background-color: #ccc;
+            color: #333;
             border-radius: 4px;
+            font-size: 14px;
         }
 
         button {
+            display: block;
             width: 100%;
-            padding: 12px;
-            background-color: #28a745;
+            max-width: 300px;
+            margin: 20px auto;
+            padding: 15px;
+            background-color: #888;
             color: #fff;
             border: none;
             border-radius: 5px;
@@ -84,31 +79,36 @@
         }
 
         button:hover {
-            background-color: #218838;
+            background-color: #777;
         }
 
         #result {
             margin-top: 20px;
             font-size: 16px;
-            color: #212529;
+            color: #444;
             text-align: center;
         }
 
         @media (max-width: 576px) {
-            .container {
-                margin: 10px;
-                padding: 15px;
-            }
-
             h1 {
                 font-size: 24px;
             }
 
             label {
-                font-size: 14px;
+                font-size: 12px;
             }
 
-            p {
+            .checkbox-grid {
+                gap: 10px;
+                padding: 15px;
+            }
+
+            button {
+                padding: 12px;
+                font-size: 16px;
+            }
+
+            #result {
                 font-size: 14px;
             }
         }
@@ -116,59 +116,57 @@
 </head>
 <body>
 
-    <div class="container">
-        <h1>Correios para Apartamentos</h1>
-        
-        <div class="checkbox-grid">
-            <!-- Generate the grid dynamically -->
-            <script>
-                const totalAndares = 17;
-                const totalAptos = 9;
-                const gridContainer = document.querySelector('.checkbox-grid');
-                
-                for (let i = 1; i <= totalAndares; i++) {
-                    const andar = i.toString().padStart(2, '0');
-                    const andarDiv = document.createElement('div');
-                    andarDiv.classList.add('andar');
-                    andarDiv.textContent = andar;
-                    gridContainer.appendChild(andarDiv);
-                    
-                    for (let j = 1; j <= totalAptos; j++) {
-                        const apto = j.toString().padStart(2, '0');
-                        const label = document.createElement('label');
-                        const checkbox = document.createElement('input');
-                        checkbox.type = 'checkbox';
-                        checkbox.value = `${andar}${apto}`;
-                        label.appendChild(checkbox);
-                        label.appendChild(document.createTextNode(`${apto}`));
-                        gridContainer.appendChild(label);
-                    }
-                }
-            </script>
-        </div>
-        
-        <button onclick="gerarMensagem()">Gerar Mensagem</button>
-        
-        <div id="result"></div>
-        
+    <h1>Correios para Apartamentos</h1>
+    
+    <div class="checkbox-grid">
+        <!-- Generate the grid dynamically -->
         <script>
-            function gerarMensagem() {
-                const checkboxes = document.querySelectorAll('.checkbox-grid input[type="checkbox"]:checked');
-                const apartamentos = [];
-                checkboxes.forEach(checkbox => {
-                    // Removendo os zeros à esquerda
-                    const apartamentoFormatado = parseInt(checkbox.value, 10);
-                    apartamentos.push(apartamentoFormatado);
-                });
-                const resultDiv = document.getElementById('result');
-                if (apartamentos.length > 0) {
-                    resultDiv.textContent = `Correios para os seguintes apartamentos: ${apartamentos.join(', ')}`;
-                } else {
-                    resultDiv.textContent = 'Nenhum apartamento selecionado.';
+            const totalAndares = 17;
+            const totalAptos = 9;
+            const gridContainer = document.querySelector('.checkbox-grid');
+            
+            for (let i = 1; i <= totalAndares; i++) {
+                const andar = i.toString().padStart(2, '0');
+                const andarDiv = document.createElement('div');
+                andarDiv.classList.add('andar');
+                andarDiv.textContent = andar;
+                gridContainer.appendChild(andarDiv);
+                
+                for (let j = 1; j <= totalAptos; j++) {
+                    const apto = j.toString().padStart(2, '0');
+                    const label = document.createElement('label');
+                    const checkbox = document.createElement('input');
+                    checkbox.type = 'checkbox';
+                    checkbox.value = `${andar}${apto}`;
+                    label.appendChild(checkbox);
+                    label.appendChild(document.createTextNode(`${apto}`));
+                    gridContainer.appendChild(label);
                 }
             }
         </script>
     </div>
+    
+    <button onclick="gerarMensagem()">Gerar Mensagem</button>
+    
+    <div id="result"></div>
+    
+    <script>
+        function gerarMensagem() {
+            const checkboxes = document.querySelectorAll('.checkbox-grid input[type="checkbox"]:checked');
+            const apartamentos = [];
+            checkboxes.forEach(checkbox => {
+                // Removendo os zeros à esquerda
+                const apartamentoFormatado = parseInt(checkbox.value, 10);
+                apartamentos.push(apartamentoFormatado);
+            });
+            const resultDiv = document.getElementById('result');
+            if (apartamentos.length > 0) {
+                resultDiv.textContent = `Correios para os seguintes apartamentos: ${apartamentos.join(', ')}`;
+            } else {
+                resultDiv.textContent = 'Nenhum apartamento selecionado.';
+            }
+        }
+    </script>
 
 </body>
 </html>
