@@ -183,7 +183,7 @@
             const resultDiv = document.getElementById('result');
             const whatsappButton = document.getElementById('whatsappButton');
             if (apartamentos.length > 0) {
-                const mensagem = `Correios para os seguintes apartamentos: ${apartamentos.join(', ')}`;
+                const mensagem = `Encomendas para os seguintes apartamentos: ${apartamentos.join(', ')}`;
                 resultDiv.textContent = mensagem;
                 whatsappButton.style.display = 'block';
                 whatsappButton.href = `https://wa.me/?text=${encodeURIComponent(mensagem)}`;
