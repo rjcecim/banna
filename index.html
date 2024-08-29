@@ -225,7 +225,7 @@
             if (apartamentos.length > 0) {
                 const saudacao = getSaudacao();
                 const iconeEncomenda = tipoEncomenda === "SEDEX" ? "📦" : "🚚";
-                const mensagem = `${saudacao} *Gostaríamos de informar* que recebemos ${iconeEncomenda} *${tipoEncomenda}* na portaria para os apartamentos:* ${apartamentos.join(', ')}. * *Por favor, passe na portaria* para retirar suas entregas *assim que possível*. 😊`;
+                const mensagem = `${saudacao} *Gostaríamos de informar* que recebemos ${iconeEncomenda} *${tipoEncomenda}* na portaria para os apartamentos:* ${apartamentos.join(', ')}. **Por favor, passe na portaria* para retirar suas entregas *assim que possível*. 😊`;
 
                 const encodedMessage = `https://api.whatsapp.com/send?text=${encodeURIComponent(mensagem)}`;
                 
