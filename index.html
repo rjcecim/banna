@@ -1,28 +1,44 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Notificações de Encomendas</title>
+    <!-- Inclusão de fontes mais elegantes do Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Poppins:wght@400;700&display=swap" rel="stylesheet">
     <style>
         body {
-            font-family: 'Roboto', sans-serif;
+            font-family: 'Montserrat', sans-serif;
             background-color: #f4f4f9;
             margin: 0;
-            padding: 0;
+            padding: 20px;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             min-height: 100vh;
+            box-sizing: border-box;
+        }
+
+        .container {
+            background-color: #fff;
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            padding: 40px 30px;
+            width: 100%;
+            max-width: 700px;
+            box-sizing: border-box;
         }
 
         .titulo {
-            color: #007bff;
-            font-size: 18px;
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(90deg, #007bff, #00c6ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-size: 32px;
             font-weight: 700;
             text-align: center;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
             text-transform: uppercase;
             letter-spacing: 2px;
             position: relative;
@@ -32,191 +48,290 @@
             content: '';
             display: block;
             width: 80px;
-            height: 4px;
-            background-color: #007bff;
-            margin: 8px auto 0;
-            border-radius: 2px;
+            height: 5px;
+            background: linear-gradient(90deg, #007bff, #00c6ff);
+            margin: 12px auto 0;
+            border-radius: 2.5px;
         }
 
-        .container {
-            background-color: #fff;
-            border-radius: 10px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-            padding: 20px;
-            max-width: 100%;
-            width: 380px;
-        }
-
-        .checkbox-grid {
-            display: grid;
-            grid-template-columns: repeat(10, 1fr);
-            gap: 8px;
-            margin-bottom: 20px;
-        }
-
-        .checkbox-grid .andar {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            background-color: #007bff;
-            color: white;
-            border-radius: 5px;
-            width: 30px;
-            height: 30px;
-            font-size: 14px;
-            text-align: center;
-        }
-
-        .checkbox-grid label {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background-color: #f0f0f0;
-            border-radius: 50%;
-            width: 30px;
-            height: 30px;
-            transition: background-color 0.3s ease, transform 0.2s ease;
-            cursor: pointer;
-            font-weight: bold;
+        label[for="tipoEncomenda"] {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: 600;
             color: #333;
-            font-size: 14px;
-        }
-
-        .checkbox-grid input[type="checkbox"] {
-            display: none;
-        }
-
-        .checkbox-grid input[type="checkbox"]:checked + label {
-            background-color: #007bff;
-            color: white;
-            transform: scale(1.1);
+            font-size: 16px;
         }
 
         select, button {
             width: 100%;
-            padding: 0;
-            background-color: #28a745;
-            color: white;
+            padding: 12px 20px;
             border: none;
-            border-radius: 5px;
+            border-radius: 25px;
             font-size: 16px;
             cursor: pointer;
-            transition: background-color 0.3s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            height: 40px;
-            line-height: 40px;
-            margin-bottom: 20px;
+            transition: background 0.3s ease, transform 0.2s ease;
+            margin-bottom: 25px;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
         }
 
         select {
-            background-color: #007bff;
-            margin-bottom: 20px;
+            background: linear-gradient(45deg, #6a11cb, #2575fc);
+            color: white;
         }
 
-        button:hover, select:hover {
-            background-color: #218838;
+        select:hover {
+            filter: brightness(90%);
+        }
+
+        button {
+            background: linear-gradient(45deg, #11998e, #38ef7d);
+            color: white;
+            font-weight: 600;
+        }
+
+        button:hover {
+            transform: scale(1.02);
+            filter: brightness(90%);
+        }
+
+        .checkbox-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-bottom: 25px;
+            overflow-y: auto;
+            max-height: 60vh;
+        }
+
+        .floor-row {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .floor-label {
+            flex: 0 0 50px;
+            background-color: #007bff;
+            color: white;
+            border-radius: 10px;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            margin-right: 15px;
+            font-size: 18px;
+            box-shadow: 0 4px 6px rgba(0, 123, 255, 0.3);
+        }
+
+        .apartments {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            flex: 1;
+        }
+
+        .apartments label {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(45deg, #ff6a00, #ee0979);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            transition: background 0.3s ease, transform 0.2s ease;
+            cursor: pointer;
+            font-weight: 600;
+            color: white;
+            font-size: 16px;
+            box-shadow: 0 4px 6px rgba(255, 106, 0, 0.3);
+        }
+
+        .apartments input[type="checkbox"] {
+            display: none;
+        }
+
+        .apartments input[type="checkbox"]:checked + label {
+            background: linear-gradient(45deg, #00c6ff, #007bff);
+            transform: scale(1.1);
+            box-shadow: 0 6px 8px rgba(0, 123, 255, 0.5);
         }
 
         #result {
-            margin-top: 20px;
-            font-weight: bold;
+            margin-top: 25px;
+            font-weight: 600;
             color: #333;
             text-align: center;
+            word-wrap: break-word;
+            font-size: 16px;
+            min-height: 24px;
         }
 
         .whatsapp-button {
-            margin-top: 20px;
-            background-color: #28a745;
+            margin-top: 25px;
+            background: linear-gradient(45deg, #25D366, #128C7E);
             color: #FFF;
-            border-radius: 5px;
-            padding: 0;
+            border-radius: 25px;
+            padding: 12px 20px;
             text-align: center;
             font-size: 16px;
             cursor: pointer;
-            transition: background-color 0.3s ease;
+            transition: background 0.3s ease, transform 0.2s ease;
             text-decoration: none;
             display: flex;
             align-items: center;
             justify-content: center;
-            height: 40px;
-            line-height: 40px;
+            height: auto;
+            line-height: normal;
+            font-weight: 600;
         }
 
         .whatsapp-button:hover {
-            background-color: #218838;
+            transform: scale(1.02);
+            filter: brightness(90%);
         }
 
         .whatsapp-button svg {
-            margin-right: 8px;
+            margin-right: 10px;
             vertical-align: middle;
             height: 24px;
             width: 24px;
+        }
+
+        /* Responsividade para telas menores */
+        @media (max-width: 768px) {
+            .container {
+                padding: 30px 20px;
+                max-width: 90%;
+            }
+
+            .floor-label {
+                flex: 0 0 45px;
+                width: 45px;
+                height: 45px;
+                font-size: 16px;
+            }
+
+            .apartments label {
+                width: 35px;
+                height: 35px;
+                font-size: 14px;
+            }
+
+            .titulo {
+                font-size: 28px;
+            }
+
+            select, button, .whatsapp-button {
+                font-size: 15px;
+                padding: 10px 18px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .floor-row {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .floor-label {
+                margin-bottom: 8px;
+            }
+
+            .apartments {
+                width: 100%;
+            }
+
+            .titulo {
+                font-size: 24px;
+            }
+
+            select, button, .whatsapp-button {
+                font-size: 14px;
+                padding: 9px 16px;
+            }
         }
     </style>
 </head>
 <body>
 
-    <div class="container">
+    <main class="container">
         <h1 class="titulo">Notificações de Encomendas</h1>
-    
-        <select id="tipoEncomenda">
+
+        <label for="tipoEncomenda">Tipo de Encomenda:</label>
+        <select id="tipoEncomenda" aria-label="Tipo de Encomenda">
             <option value="SEDEX">SEDEX (Correios)</option>
             <option value="ENCOMENDAS">ENCOMENDAS (Transportadora)</option>
         </select>
-    
-        <div class="checkbox-grid">
-            <!-- Generate the grid dynamically -->
-            <script>
-                const totalAndares = 17;
-                const totalAptos = 9;
-                const gridContainer = document.querySelector('.checkbox-grid');
-                
-                for (let i = 1; i <= totalAndares; i++) {
-                    const andar = i.toString().padStart(2, '0');
-                    const andarDiv = document.createElement('div');
-                    andarDiv.classList.add('andar');
-                    andarDiv.textContent = andar;
-                    gridContainer.appendChild(andarDiv);
-                    
-                    for (let j = 1; j <= totalAptos; j++) {
-                        const apto = j.toString().padStart(2, '0');
-                        const checkbox = document.createElement('input');
-                        checkbox.type = 'checkbox';
-                        checkbox.value = `${andar}${apto}`;
-                        checkbox.id = `${andar}${apto}`;
-                        
-                        const label = document.createElement('label');
-                        label.setAttribute('for', `${andar}${apto}`);
-                        label.textContent = `${apto}`;
-                        
-                        gridContainer.appendChild(checkbox);
-                        gridContainer.appendChild(label);
-                    }
-                }
-            </script>
+
+        <div class="checkbox-grid" aria-label="Selecione os apartamentos que receberam encomendas">
+            <!-- As linhas de andares e apartamentos serão geradas dinamicamente pelo JavaScript -->
         </div>
-    
-        <button onclick="gerarMensagem()">Gerar Mensagem</button>
-    
-        <div id="result"></div>
-        <a id="whatsappButton" class="whatsapp-button" href="#" target="_blank" style="display:none;">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-                <path fill="#fff" d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/>
+
+        <button type="button" onclick="gerarMensagem()">Gerar Mensagem</button>
+
+        <div id="result" aria-live="polite"></div>
+        <a id="whatsappButton" class="whatsapp-button" href="#" target="_blank" rel="noopener noreferrer" style="display:none;">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#FFFFFF">
+                <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/>
             </svg>
             Enviar via WhatsApp
         </a>
-    </div>
-    
+    </main>
+
     <script>
+        // Utilizando DocumentFragment para melhorar a performance ao adicionar múltiplos elementos
+        document.addEventListener('DOMContentLoaded', () => {
+            const totalAndares = 17;
+            const totalAptos = 9;
+            const gridContainer = document.querySelector('.checkbox-grid');
+            const fragment = document.createDocumentFragment();
+
+            for (let i = 1; i <= totalAndares; i++) {
+                const andar = i.toString().padStart(2, '0');
+                const floorRow = document.createElement('div');
+                floorRow.classList.add('floor-row');
+
+                const floorLabel = document.createElement('div');
+                floorLabel.classList.add('floor-label');
+                floorLabel.textContent = `${andar}`;
+
+                const apartmentsContainer = document.createElement('div');
+                apartmentsContainer.classList.add('apartments');
+
+                for (let j = 1; j <= totalAptos; j++) {
+                    const apto = j.toString().padStart(2, '0');
+                    const checkboxId = `P${andar}${apto}`;
+
+                    const checkbox = document.createElement('input');
+                    checkbox.type = 'checkbox';
+                    checkbox.value = `${andar}${apto}`;
+                    checkbox.id = checkboxId;
+
+                    const label = document.createElement('label');
+                    label.setAttribute('for', checkboxId);
+                    label.textContent = apto;
+
+                    apartmentsContainer.appendChild(checkbox);
+                    apartmentsContainer.appendChild(label);
+                }
+
+                floorRow.appendChild(floorLabel);
+                floorRow.appendChild(apartmentsContainer);
+                fragment.appendChild(floorRow);
+            }
+
+            gridContainer.appendChild(fragment);
+        });
+
         function gerarMensagem() {
             const tipoEncomenda = document.getElementById('tipoEncomenda').value;
             const checkboxes = document.querySelectorAll('.checkbox-grid input[type="checkbox"]:checked');
             const apartamentos = [];
             checkboxes.forEach(checkbox => {
-                const apartamentoFormatado = parseInt(checkbox.value, 10);
+                const apartamentoFormatado = checkbox.value; // Mantendo como string para exibir '0101', etc.
                 apartamentos.push(apartamentoFormatado);
             });
             const resultDiv = document.getElementById('result');
@@ -225,12 +340,12 @@
             if (apartamentos.length > 0) {
                 const saudacao = getSaudacao();
                 const iconeEncomenda = tipoEncomenda === "SEDEX" ? "📦" : "🚚";
-                const mensagem = `${saudacao} *Gostaríamos de informar* que recebemos ${iconeEncomenda} *${tipoEncomenda}* na portaria para os apartamentos:* ${apartamentos.join(', ')}. * *Por favor, passe na portaria* para retirar suas entregas *assim que possível*. 😊`;
+                const mensagem = `${saudacao} *Gostaríamos de informar* que recebemos ${iconeEncomenda} *${tipoEncomenda}* na portaria para os apartamentos: *${apartamentos.join(', ')}*. *Por favor, passe na portaria* para retirar suas entregas *assim que possível*. 😊`;
 
                 const encodedMessage = `https://api.whatsapp.com/send?text=${encodeURIComponent(mensagem)}`;
                 
                 resultDiv.textContent = mensagem;
-                whatsappButton.style.display = 'block';
+                whatsappButton.style.display = 'flex';
                 whatsappButton.href = encodedMessage;
             } else {
                 resultDiv.textContent = 'Nenhum apartamento selecionado.';
