@@ -100,14 +100,16 @@
             flex-direction: column;
             gap: 15px;
             margin-bottom: 25px;
-            overflow-y: auto;
+            overflow-x: auto; /* Permite rolagem horizontal se necessário */
             max-height: 60vh;
+            padding-bottom: 10px; /* Espaço para o scrollbar */
         }
 
         .floor-row {
             display: flex;
             align-items: center;
-            flex-wrap: wrap;
+            flex-wrap: nowrap; /* Evita que as linhas quebrem */
+            min-width: 100%; /* Garante que cada linha ocupe toda a largura */
         }
 
         .floor-label {
@@ -124,11 +126,12 @@
             margin-right: 15px;
             font-size: 18px;
             box-shadow: 0 4px 6px rgba(0, 123, 255, 0.3);
+            flex-shrink: 0;
         }
 
         .apartments {
             display: flex;
-            flex-wrap: wrap;
+            flex-wrap: nowrap; /* Mantém todos os apartamentos na mesma linha */
             gap: 10px;
             flex: 1;
         }
@@ -200,7 +203,15 @@
             width: 24px;
         }
 
-        /* Responsividade para telas menores */
+        /* Responsividade para telas maiores */
+        @media (min-width: 769px) {
+            .container {
+                padding: 40px 30px;
+                max-width: 700px;
+            }
+        }
+
+        /* Responsividade para telas médias */
         @media (max-width: 768px) {
             .container {
                 padding: 30px 20px;
@@ -230,18 +241,31 @@
             }
         }
 
+        /* Responsividade para telas pequenas (celulares) */
         @media (max-width: 480px) {
+            .container {
+                padding: 20px 15px;
+                max-width: 100%; /* Container ocupa toda a largura */
+                border-radius: 10px;
+            }
+
             .floor-row {
-                flex-direction: column;
-                align-items: flex-start;
+                flex-wrap: nowrap; /* Mantém tudo na mesma linha */
+                overflow-x: auto; /* Permite rolagem horizontal */
             }
 
             .floor-label {
-                margin-bottom: 8px;
+                margin-right: 10px;
+                flex: 0 0 40px;
+                width: 40px;
+                height: 40px;
+                font-size: 14px;
             }
 
-            .apartments {
-                width: 100%;
+            .apartments label {
+                width: 30px;
+                height: 30px;
+                font-size: 12px;
             }
 
             .titulo {
@@ -251,6 +275,11 @@
             select, button, .whatsapp-button {
                 font-size: 14px;
                 padding: 9px 16px;
+            }
+
+            /* Remover margem inferior do floor-label para alinhamento melhor */
+            .floor-label {
+                margin-bottom: 0;
             }
         }
     </style>
