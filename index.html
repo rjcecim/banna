@@ -108,7 +108,7 @@
         .floor-row {
             display: flex;
             align-items: center;
-            flex-wrap: nowrap; /* Evita que as linhas quebrem */
+            flex-wrap: nowrap; /* Mantém tudo na mesma linha */
             min-width: 100%; /* Garante que cada linha ocupe toda a largura */
         }
 
@@ -116,7 +116,7 @@
             flex: 0 0 50px;
             background-color: #007bff;
             color: white;
-            border-radius: 10px;
+            border-radius: 50%; /* Torna o label circular */
             width: 50px;
             height: 50px;
             display: flex;
@@ -313,7 +313,7 @@
     <script>
         // Utilizando DocumentFragment para melhorar a performance ao adicionar múltiplos elementos
         document.addEventListener('DOMContentLoaded', () => {
-            const totalAndares = 17;
+            const totalAndares = 17; // Certifique-se de que o loop vai até 17
             const totalAptos = 9;
             const gridContainer = document.querySelector('.checkbox-grid');
             const fragment = document.createDocumentFragment();
