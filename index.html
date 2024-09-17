@@ -7,6 +7,11 @@
     <!-- Inclusão de fontes mais elegantes do Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Poppins:wght@400;700&display=swap" rel="stylesheet">
     <style>
+        /* Aplicar box-sizing globalmente */
+        *, *::before, *::after {
+            box-sizing: border-box;
+        }
+
         body {
             font-family: 'Montserrat', sans-serif;
             background-color: #f4f4f9;
@@ -17,7 +22,6 @@
             align-items: center;
             justify-content: center;
             min-height: 100vh;
-            box-sizing: border-box;
         }
 
         .container {
@@ -27,7 +31,6 @@
             padding: 40px 30px;
             width: 100%;
             max-width: 700px;
-            box-sizing: border-box;
         }
 
         .titulo {
@@ -71,7 +74,6 @@
             cursor: pointer;
             transition: background 0.3s ease, transform 0.2s ease;
             margin-bottom: 25px;
-            box-sizing: border-box;
             font-family: 'Poppins', sans-serif;
         }
 
@@ -100,25 +102,25 @@
             flex-direction: column;
             gap: 15px;
             margin-bottom: 25px;
-            overflow-x: auto;
-            max-height: 60vh;
+            overflow: visible; /* Permitir transbordo vertical */
             padding-bottom: 10px;
         }
 
         .floor-row {
             display: flex;
-            align-items: center;
-            flex-wrap: nowrap; /* Mantém os apartamentos na mesma linha */
-            min-width: 100%; /* Garante que os andares ocupem toda a largura */
+            align-items: flex-start; /* Alinhar no início */
+            flex-wrap: nowrap;
+            min-width: 100%;
+            padding-bottom: 10px; /* Espaço extra */
         }
 
         .floor-label {
             flex: 0 0 50px;
+            width: 50px;
+            height: 50px;
             background-color: #007bff;
             color: white;
             border-radius: 50%;
-            width: 50px;
-            height: 50px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -131,10 +133,11 @@
 
         .apartments {
             display: flex;
-            flex-wrap: nowrap; /* Mantém todos os apartamentos na mesma linha */
-            gap: 5px; /* Ajusta o espaço entre os apartamentos */
+            flex-wrap: nowrap;
+            gap: 5px;
             flex: 1;
-            overflow-x: auto; /* Permite a rolagem horizontal */
+            overflow-x: auto;
+            padding: 5px 0; /* Adicionar padding */
         }
 
         .apartments label {
